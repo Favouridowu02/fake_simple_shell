@@ -1,9 +1,9 @@
-#include "shell.c"
+#include "shell.h"
 /**
  * execute - a function to execute a command
  * @str: the string to be passed
  */
-int execute(char *str)
+void execute(char *str)
 {
 	char *args[2];
 	pid_t child_pid;
@@ -16,12 +16,12 @@ int execute(char *str)
 		perror("Error: ");
 		exit(EXIT_FAILURE);
 	}
-	if (child_pid == 0)
+	else if (child_pid == 0)
 	{
 		args[0] = str;
 		args[1] = NULL;
 
-		if (execve(str, args, NULL) == -1)
+		if (execve(args[0], args, NULL) == -1)
 		{
 			perror("Error: ");
 			exit(EXIT_FAILURE);
@@ -30,7 +30,5 @@ int execute(char *str)
 	else
 	{
 		wait(&status);
-		exit(EXIT_SUCCESS);
 	}
-	return (0);
 }

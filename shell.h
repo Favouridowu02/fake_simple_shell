@@ -10,6 +10,6 @@
 
 int _strlen(char *str);
 void favour_print(char *str);
-int execute(char *str);
+void execute(char *str);
 
 #endif
