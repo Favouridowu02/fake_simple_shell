@@ -15,6 +15,26 @@ int _strlen(char *str)
 	return (i);
 }
 
+char *_strcpy(char *str1, char *str2)
+{
+	int i = 0;
+
+	while (str1[i] != 0)
+		i++;
+
+	str2 = malloc(sizeof(char) * (i + 1));
+	if (str2 == NULL)
+		return (NULL);
+
+	while (i >= 0)
+	{
+		str2[i] = str1[i];
+		i--;
+	}
+	return (str2);
+}
+
+
 /**
  * favour_print - prints a set of character
  * @str: the string to be printed out
