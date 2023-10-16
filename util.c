@@ -15,25 +15,48 @@ int _strlen(char *str)
 	return (i);
 }
 
-char *_strcpy(char *str1, char *str2)
+/**
+ * _strcpy - Copies string from str1 to str2
+ * @str1: the source
+ * @str2: the destination
+ *
+ * Return: always (0)
+ */
+int *_strcpy(char *str1, char *str2)
 {
 	int i = 0;
 
 	while (str1[i] != 0)
 		i++;
 
-	str2 = malloc(sizeof(char) * (i + 1));
-	if (str2 == NULL)
-		return (NULL);
-
 	while (i >= 0)
 	{
 		str2[i] = str1[i];
 		i--;
 	}
-	return (str2);
+	return (0);
 }
 
+/**
+ * tok_count - counts the number of tokens
+ * @str: the string to be tokenized
+ * @delim: the delimeter
+ *
+ * Return: the number of tokens
+ */
+int tok_count(char *str, char *delim)
+{
+	int count = 0;
+	char *temp = strtok(str, delim);
+
+	while (temp != NULL)
+	{
+		count++;
+		temp = strtok(NULL, delim);
+	}
+
+	return (count);
+}
 
 /**
  * favour_print - prints a set of character
@@ -48,7 +71,7 @@ void favour_print(char *str)
 
 	while (str[i] != '\0')
 	{
-		write (1, &str[i], 1);
+		write(1, &str[i], 1);
 		i++;
 	}
 }

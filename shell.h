@@ -11,6 +11,7 @@
 int _strlen(char *str);
 void favour_print(char *str);
 void execute(char *str);
-char *_strcpy(char *str1, char *str2);
+int *_strcpy(char *str1, char *str2);
+int tok_count(char *str, char *delim);
 
 #endif
