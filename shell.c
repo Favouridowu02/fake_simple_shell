@@ -16,10 +16,15 @@ int main(void)
 	{
 		favour_print("sleek_shell$ ");
 		ngets = getline(&command, &len, stdin);
-		if (ngets == -1)
+		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
 			favour_print("Bye\n");
 			return (-1);
+		}
+		if (_strncmp(command, "env", 3) == 0)
+		{
+			printenv(environ);
+			continue;
 		}
 		if (command != NULL)
 		{
