@@ -33,7 +33,6 @@ int main(void)
 			execute(command);
 		}
 	}
-	
 
 	free(command);
 	return (0);

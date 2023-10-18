@@ -44,6 +44,11 @@ int printenv(char **env)
 	return (0);
 }
 
+/**
+ * freespace - frees te allocated space
+ * @arg: the argument
+ * @count: the indexes
+ */
 void freespace(char **arg, size_t count)
 {
 	size_t i;

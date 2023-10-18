@@ -1,5 +1,6 @@
 #include "shell.h"
 
+int allocate_memory(char ***args, char *str);
 /**
  * execute - a function to execute a command
  * @str: the string to be passed
@@ -8,51 +9,27 @@ void execute(char *str)
 {
 	char **args;
 	pid_t child_pid;
+	int status, count_tok, i = 0;
 	char *tok;
-	size_t count_tok;
-	int status;
-	int i = 0;
-	char *str2 = malloc(sizeof(char) * (_strlen(str) + 1));
 
-	if (str2 == NULL)
-	{
-		perror("Error: ");
-		exit(EXIT_FAILURE);
-	}
-
-	_strcpy(str, str2);
-	count_tok = tok_count(str2, " ");
-
-	free(str2);
-
-	args = malloc(sizeof(char *) * (count_tok + 1));
-	if (args == NULL)
-	{
-		perror("Error: ");
-		exit(EXIT_FAILURE);
-	}
+	count_tok = allocate_memory(&args, str);
 	if (count_tok == 0)
-	{
-		free(args);
 		return;
-	}
-
 	child_pid = fork();
 	if (child_pid == -1)
 	{
 		perror("Error: ");
+		free(args);
 		exit(EXIT_FAILURE);
 	}
 	else if (child_pid == 0)
 	{
 		tok = strtok(str, " ");
-		while (tok != NULL)
+		for (; tok != NULL; i++)
 		{
 			args[i] = tok;
 			tok = strtok(NULL, " ");
-			i++;
 		}
-
 		args[i] = NULL;
 		if (execve(args[0], args, NULL) == -1)
 		{
@@ -66,4 +43,26 @@ void execute(char *str)
 		freespace(args, i);
 		wait(&status);
 	}
+}
+
+/**
+ * allocate_memory - allocates memory for the args
+ * @args: the pointer to strings
+ * @str: the string gotten from getline
+ *
+ * Return: returns count_tok
+ */
+int allocate_memory(char ***args, char *str)
+{
+	char *str2 = malloc(sizeof(char) * (_strlen(str) + 1));
+	int count_tok;
+
+	_strcpy(str, str2);
+	count_tok = tok_count(str2, " ");
+	*args = malloc(sizeof(char *) * (count_tok + 1));
+	free(str2);
+
+	if (count_tok == 0)
+		free(*args);
+	return (count_tok);
 }

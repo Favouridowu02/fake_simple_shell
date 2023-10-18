@@ -17,6 +17,6 @@ void execute(char *str);
 int *_strcpy(char *str1, char *str2);
 int tok_count(char *str, char *delim);
 int printenv(char **env1);
-int freespace(char **arg, size_t i);
+void freespace(char **arg, size_t count);
 
 #endif
