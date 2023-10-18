@@ -18,8 +18,8 @@ int main(void)
 		ngets = getline(&command, &len, stdin);
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
-			favour_print("Bye\n");
 			free(command);
+			favour_print("\n");
 			return (-1);
 		}
 		if (_strncmp(command, "env", 3) == 0)
