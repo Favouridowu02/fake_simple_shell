@@ -44,13 +44,13 @@ int printenv(char **env)
 	return (0);
 }
 
-void freespace(char **arg, size_t count)
+int freespace(char **arg, size_t i)
 {
-	size_t i;
-
-	for (i = 0; i < count; i++)
+	while (i > 0)
 	{
 		free(arg[i]);
+		i--;
 	}
 	free(arg);
+	return (0);
 }

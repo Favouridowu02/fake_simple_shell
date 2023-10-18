@@ -19,7 +19,6 @@ int main(void)
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
 			favour_print("Bye\n");
-			free(command);
 			return (-1);
 		}
 		if (_strncmp(command, "env", 3) == 0)
@@ -33,7 +32,6 @@ int main(void)
 			execute(command);
 		}
 	}
-	
 
 	free(command);
 	return (0);
