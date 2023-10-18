@@ -13,12 +13,12 @@ void execute(char *str)
 	char *tok;
 
 	count_tok = allocate_memory(&args, str);
-	if (count_tok == 0)
+	if (count_tok == 0 || args == NULL)
 		return;
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror("Error: ");
+		perror("./hsh");
 		free(args);
 		exit(EXIT_FAILURE);
 	}
@@ -33,7 +33,7 @@ void execute(char *str)
 		args[i] = NULL;
 		if (execve(args[0], args, NULL) == -1)
 		{
-			perror("Error: ");
+			perror("./hsh");
 			exit(EXIT_FAILURE);
 		}
 		freespace(args, i);
@@ -54,9 +54,13 @@ void execute(char *str)
  */
 int allocate_memory(char ***args, char *str)
 {
-	char *str2 = malloc(sizeof(char) * (_strlen(str) + 1));
 	int count_tok;
+	char *str2 = malloc(sizeof(char) * (_strlen(str) + 1));
 
+	if (str2 == NULL)
+	{
+		return (0);
+	}
 	_strcpy(str, str2);
 	count_tok = tok_count(str2, " ");
 	*args = malloc(sizeof(char *) * (count_tok + 1));
