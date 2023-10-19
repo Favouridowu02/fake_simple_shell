@@ -10,16 +10,16 @@ int main(__attribute__((unused))int ac, char **av)
 	char *command = NULL;
 	size_t len = 0;
 	ssize_t ngets;
-
+	int interactive = isatty(STDIN_FILENO);
 
 	while (1)
 	{
-		favour_print("($) ");
+		if (interactive)
+			favour_print("($) ");
 		ngets = getline(&command, &len, stdin);
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
 			free(command);
-			favour_print("\n");
 			return (-1);
 		}
 		if (_strncmp(command, "env", 3) == 0)
