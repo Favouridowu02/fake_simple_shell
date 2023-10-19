@@ -13,7 +13,6 @@ int main(__attribute__((unused))int ac, char **av)
 	size_t len = 0;
 	ssize_t ngets;
 	int interactive = isatty(STDIN_FILENO);
-	void (*f)() = sigint_handler;
 
 	while (1)
 	{
