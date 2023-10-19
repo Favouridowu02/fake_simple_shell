@@ -3,6 +3,7 @@
 int allocate_memory(char ***args, char *str);
 /**
  * execute - a function to execute a command
+ * @program_name: the program name
  * @str: the string to be passed
  */
 void execute(char *str, char *program_name)
