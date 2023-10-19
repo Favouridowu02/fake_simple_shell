@@ -1,4 +1,12 @@
 #include "shell.h"
+#include <signal.h>
+
+void signalHandle(__attribute__((unused))int sig_num)
+{
+	signal(SIGINT, signalHandle);
+	favour_print("\n($) ");
+	fflush(stdout);
+}
 
 /**
  * main - entry point
@@ -16,11 +24,14 @@ int main(__attribute__((unused))int ac, char **av)
 
 	while (1)
 	{
+		signal(SIGINT, signalHandle);
 		if (interactive)
 			favour_print("($) ");
 		ngets = getline(&command, &len, stdin);
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
+			if (ngets == -1)
+				favour_print("\n");
 			free(command);
 			return (-1);
 		}

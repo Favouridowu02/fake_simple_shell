@@ -41,8 +41,8 @@ void execute(char *str, char *program_name)
 	}
 	else
 	{
-		freespace(args, i);
 		wait(&status);
+		freespace(args, i);
 	}
 }
 
