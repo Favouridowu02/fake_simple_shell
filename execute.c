@@ -25,11 +25,11 @@ void execute(char *str, char *program_name)
 	}
 	else if (child_pid == 0)
 	{
-		tok = strtok(str, " ");
+		tok = strtok(str, "	 ");
 		for (; tok != NULL; i++)
 		{
 			args[i] = tok;
-			tok = strtok(NULL, " ");
+			tok = strtok(NULL, "	 ");
 		}
 		args[i] = NULL;
 		if (execve(args[0], args, NULL) == -1)
