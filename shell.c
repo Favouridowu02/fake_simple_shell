@@ -28,6 +28,8 @@ int main(__attribute__((unused))int ac, char **av)
 		if (interactive)
 			favour_print("($) ");
 		ngets = getline(&command, &len, stdin);
+		if (_strncmp(command, "\n", 1) == 0)
+			continue;
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
 			if (ngets == -1)
