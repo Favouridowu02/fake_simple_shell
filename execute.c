@@ -32,7 +32,7 @@ void execute(char *str, char *program_name)
 			tok = strtok(NULL, "	 ");
 		}
 		args[i] = NULL;
-		if (execve(args[0], args, NULL) == -1)
+		if (execve(args[0], args, environ) == -1)
 		{
 			perror(program_name);
 			exit(EXIT_FAILURE);
