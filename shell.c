@@ -30,8 +30,8 @@ int main(__attribute__((unused))int ac, char **av)
 		if (command != NULL)
 		{
 			command[_strlen(command) - 1] = '\0';
-			if (command[_strlen(command) - 1] == '/n')
-				command[_strlen(command) - 1] = '/0';
+			if (command[_strlen(command) - 1] == '\n')
+				command[_strlen(command) - 1] = '\0';
 			execute(command, av[0]);
 		}
 	}
