@@ -2,6 +2,8 @@
 
 /**
  * main - entry point
+ * @ac: the argument count
+ * @av: the argument vector
  *
  * Return: always 0
  */
