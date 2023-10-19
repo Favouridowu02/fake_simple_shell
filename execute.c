@@ -5,7 +5,7 @@ int allocate_memory(char ***args, char *str);
  * execute - a function to execute a command
  * @str: the string to be passed
  */
-void execute(char *str)
+void execute(char *str, char *program_name)
 {
 	char **args;
 	pid_t child_pid;
@@ -18,7 +18,7 @@ void execute(char *str)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror("./hsh");
+		perror(program_name);
 		free(args);
 		exit(EXIT_FAILURE);
 	}
@@ -33,7 +33,7 @@ void execute(char *str)
 		args[i] = NULL;
 		if (execve(args[0], args, NULL) == -1)
 		{
-			perror("./hsh");
+			perror(program_name);
 			exit(EXIT_FAILURE);
 		}
 		freespace(args, i);

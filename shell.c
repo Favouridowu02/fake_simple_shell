@@ -1,20 +1,20 @@
 #include "shell.h"
-#include <stdbool.h>
 
 /**
  * main - entry point
  *
  * Return: always 0
  */
-int main(void)
+int main(__attribute__((unused))int ac, char **av)
 {
 	char *command = NULL;
 	size_t len = 0;
 	ssize_t ngets;
 
-	while (true)
+
+	while (1)
 	{
-		favour_print("sleek_shell$ ");
+		favour_print("($) ");
 		ngets = getline(&command, &len, stdin);
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
@@ -30,7 +30,7 @@ int main(void)
 		if (command != NULL)
 		{
 			command[_strlen(command) - 1] = '\0';
-			execute(command);
+			execute(command, av[0]);
 		}
 	}
 
