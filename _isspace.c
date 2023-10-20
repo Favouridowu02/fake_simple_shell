@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "shell.h"
+#include "main.h"
 /**
  * _isspace - checks if a strings contains only spaces
  * @str: the string

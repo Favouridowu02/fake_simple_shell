@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "shell.h"
+#include "main.h"
 /**
  * getTokLen - gets how many tokens are in a string
  * @str: the string to work on
@@ -11,14 +11,14 @@
  */
 size_t getTokLen(char *str, char *delim)
 {
-	size_t length = 0;
+	size_t len = 0;
 	char *token;
 
 	token = strtok(str, delim);
 	while (token != NULL)
 	{
+		len++;
 		token = strtok(NULL, delim);
-		length++;
 	}
-	return (length);
+	return (len);
 }

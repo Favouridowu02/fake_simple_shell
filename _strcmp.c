@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "shell.h"
+#include "main.h"
 /**
  * _strcmp - compares two strings if they are identical
  * @str1: first string
@@ -11,20 +11,20 @@
  */
 int _strcmp(char *str1, char *str2)
 {
-	size_t j;
+	size_t i;
 	int rtn_val = 0;
-	size_t lstr1, lstr2;
+	size_t lofstr1, lofstr2;
 
-	lstr1 = lenOfStr(str1);
-	lstr2 = lenOfStr(str2);
-	for (j = 0; j < lstr1; j++)
+	lofstr1 = lenOfStr(str1);
+	lofstr2 = lenOfStr(str2);
+	for (i = 0; i < lofstr1; i++)
 	{
-		if (j >= lstr2)
+		if (i >= lofstr2)
 		{
 			rtn_val = 1;
 			break;
 		}
-		if (str1[j] == str2[j])
+		if (str1[i] == str2[i])
 			continue;
 		else
 		{
@@ -32,14 +32,14 @@ int _strcmp(char *str1, char *str2)
 			break;
 		}
 	}
-	for (j = 0; j < lstr2; j++)
+	for (i = 0; i < lofstr2; i++)
 	{
-		if (j >= lstr1)
+		if (i >= lofstr1)
 		{
 			rtn_val = 1;
 			break;
 		}
-		if (str2[j] == str1[j])
+		if (str2[i] == str1[i])
 			continue;
 		else
 		{

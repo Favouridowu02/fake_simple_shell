@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "shell.h"
+#include "main.h"
 /**
  * lenOfStr - gets the length of a string
  * @str: the string to work on
@@ -7,9 +7,10 @@
  */
 size_t lenOfStr(char *str)
 {
-	size_t i = 0;
+	int i;
+	size_t len = 0;
 
-	while (str[i])
-		i++;
-	return (i);
+	for (i = 0; str[i]; i++)
+		len++;
+	return (len);
 }

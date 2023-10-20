@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <stdarg.h>
-#include "shell.h"
+#include "main.h"
 /**
  * print_prompt - prints a prompt and recieves line input
  * @line: a string containing the characters entered on the line
@@ -17,7 +17,7 @@
 int print_prompt(char *line, int llen)
 {
 	char **argptr;
-	int me;
+	int mine;
 
 	if (_strcmp(line, "\n") == 0 || _isspace(line) == 0)
 		return (2);
@@ -25,7 +25,6 @@ int print_prompt(char *line, int llen)
 	{
 		line[llen - 1] = '\0';
 	}
-	argptr = _exitshell(line);
 	if (llen == -1 || _strcmp(line, "exit") == 0)
 	{
 		if (llen == -1 && isatty(STDIN_FILENO))
@@ -34,7 +33,7 @@ int print_prompt(char *line, int llen)
 	}
 	else if (_strcmp(line, "env") == 0)
 		return (3);
-	else if (argptr != NULL)
+	else if ((argptr = _exitshell(line)) != NULL)
 	{
 		if (argptr[1] == NULL)
 		{
@@ -42,49 +41,51 @@ int print_prompt(char *line, int llen)
 			free(argptr);
 			return (1);
 		}
-		me = 100 + atoi(argptr[1]);
+		mine = 100 + atoi(argptr[1]);
 		free(argptr[0]);
 		free(argptr[1]);
 		free(argptr);
-		return (me);
+		return (mine);
 	}
 	return (0);
 }
 /**
  * free_in_child - frees all memory that needs to be freed in the child process
- * @str: a pointer  to free
- * @arg: a pointer  to free
- * @ck: checks if the calling function is called to free line or not.
+ * @line: a pointer to free
+ * @argd: a pointer to free
+ * @check: checks if the function is called to free line or not.
  * The check is added so the function can be reuseable
  * Return: Nothing
  */
-void free_in_child(char *str, char **arg, int ck)
+void free_in_child(char *line, char **argd, int check)
 {
 	int i;
 
-	if (ck == 0)
-		free(str);
-	for (i = 0; arg[i] != NULL; i++)
-		free(arg[i]);
-	free(arg);
+	if (check == 0)
+		free(line);
+	for (i = 0; argd[i] != NULL; i++)
+		free(argd[i]);
+	free(argd);
 }
 /**
  * sigint_handler - handles the control C signal and
  * disallows it from stopping the shell
  * @signum: the signal recieved
  */
-void sigint_handler(__attribute__((unused)) int signum)
+void sigint_handler(UNUSED int signum)
 {
-	printf("\n$ ");
+	printf("\n");
+	printf("$ ");
 	fflush(stdout);
 }
 /**
  * print_environ - prints the enviromental variables
- *
+ * 
  * Return: Nothing
  */
-void print_environ(void)
+void print_environ()
 {
+	extern char **environ;
 	char **envp = environ;
 	int i = 0;
 
@@ -145,6 +146,9 @@ int shell(char **av)
 		free(strddup);
 		if (directory == NULL)
 		{
+			/**
+			printf("%s: %d: %s: not found\n", av[0], count, line);
+			*/
 			free(line);
 			execve(argd[0], argd, environ);
 			perror(av[0]);

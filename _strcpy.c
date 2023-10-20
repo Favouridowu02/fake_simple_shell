@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "shell.h"
+#include "main.h"
 /**
  * _strcpy - copies a string to another string in memory
  * @dest: the destination string

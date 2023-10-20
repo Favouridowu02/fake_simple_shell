@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "shell.h"
+#include "main.h"
 /**
  * _strtok - gets tokens from a string
  * @str: the string to work on
@@ -13,14 +13,14 @@
 char **_strtok(char *str, char *delim, size_t *length)
 {
 	size_t toklen, strlen;
-	char *str2, *token;
+	char *strddup, *token;
 	char **tokarr;
 	int i = 0, j;
 
-	str2 = _strdup(str);
-	toklen = getTokLen(str2, delim);
+	strddup = _strdup(str);
+	toklen = getTokLen(strddup, delim);
 	*length = toklen;
-	free(str2);
+	free(strddup);
 	tokarr = malloc((toklen + 1) * sizeof(char *));
 	token = strtok(str, delim);
 	i = 0;

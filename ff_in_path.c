@@ -5,21 +5,21 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
-#include "shell.h"
+#include "main.h"
 /**
  * free_last - frees memory at the end of the ff_in_path function
  * @strtow: a pointer to free
  * @duppath: a pointer to free
  * Return: nothing.
  */
-void free_last(char **str, char *dupath)
+void free_last(char **strtow, char *duppath)
 {
 	unsigned int j;
 
-	for (j = 0; str[j] != NULL; j++)
-		free(str[j]);
-	free(str);
-	free(dupath);
+	for (j = 0; strtow[j] != NULL; j++)
+		free(strtow[j]);
+	free(strtow);
+	free(duppath);
 }
 /**
  * ff_in_path - looks for the entered command by the user in the path

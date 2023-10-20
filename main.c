@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "shell.h"
+#include "main.h"
 /**
  * main - simple shell main function
  * @ac: argument count
