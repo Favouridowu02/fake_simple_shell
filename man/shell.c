@@ -1,25 +1,40 @@
 #include "shell.h"
-#include <stdbool.h>
+#include <signal.h>
+
+void signalHandle(__attribute__((unused))int sig_num)
+{
+	signal(SIGINT, signalHandle);
+	favour_print("\n($) ");
+	fflush(stdout);
+}
 
 /**
  * main - entry point
+ * @ac: the argument count
+ * @av: the argument vector
  *
  * Return: always 0
  */
-int main(void)
+int main(__attribute__((unused))int ac, char **av)
 {
 	char *command = NULL;
 	size_t len = 0;
 	ssize_t ngets;
+	int interactive = isatty(STDIN_FILENO);
 
-	while (true)
+	while (1)
 	{
-		favour_print("sleek_shell$ ");
+		signal(SIGINT, signalHandle);
+		if (interactive)
+			favour_print("($) ");
 		ngets = getline(&command, &len, stdin);
+		if (_strncmp(command, "\n", 1) == 0)
+			continue;
 		if (ngets == -1 || _strncmp(command, "exit", 4) == 0)
 		{
+			if (ngets == -1)
+				favour_print("\n");
 			free(command);
-			favour_print("\n");
 			return (-1);
 		}
 		if (_strncmp(command, "env", 3) == 0)
@@ -30,10 +45,11 @@ int main(void)
 		if (command != NULL)
 		{
 			command[_strlen(command) - 1] = '\0';
-			execute(command);
+			if (command[_strlen(command) - 1] == '\n')
+				command[_strlen(command) - 1] = '\0';
+			execute(command, av[0]);
 		}
 	}
-	
 
 	free(command);
 	return (0);

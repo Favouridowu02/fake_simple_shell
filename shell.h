@@ -1,22 +1,19 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef SHELL_H
+#define SHELL_H
 
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <string.h>
+#define UNUSED __attribute__((unused))
 
 extern char **environ;
 
-int _strncmp(char *str1, const char *str2, int len);
-int _strlen(char *str);
-void favour_print(char *str);
-void execute(char *str, char *program_name);
-int *_strcpy(char *str1, char *str2);
-int tok_count(char *str, char *delim);
-int printenv(char **env1);
-void freespace(char **arg, size_t count);
+char **_exitshell(char *str);
+size_t lenOfStr(char *str);
+size_t getTokLen(char *str, char *delim);
+char *_strdup(char *str);
+char **_strtok(char *str, char *delim, size_t *length);
+char *ff_in_path(char *str);
+char *_strcpy(char *dest, char *src);
+int shell(char **av);
+int _isspace(char *str);
+int _strcmp(char *str1, char *str2);
 
 #endif
