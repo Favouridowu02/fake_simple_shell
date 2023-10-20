@@ -10,10 +10,11 @@ int _isspace(char *str)
 {
 	int i = 0;
 	int rtn = 0;
-
+	char *tok = " ";
+	char *tok2 = " ";
 	while (str[i])
 	{
-		if (str[i] != " " && str[i] != "\n")
+		if (str[i] != tok[0] && str[i] != tok2[0])
 		{
 			rtn = 1;
 			break;
